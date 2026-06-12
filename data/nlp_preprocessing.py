@@ -17,13 +17,23 @@ class Solution:
 
         token_dict = {}
 
-        for i, token in enumerate(vocab):
-            token_dict[token] = i + 1
+        token_dict = {
+            token: i + 1
+            for i, token in enumerate(vocab)
+        }
 
-        res = []
 
-        for sentence in positive + negative:
-            res.append(torch.tensor([token_dict[token] for token in sentence.split()]))
+        res = [
+
+            torch.tensor(
+
+                [token_dict[token] for token in sentence.split()]
+
+            )
+
+            for sentence in positive + negative
+
+        ]
 
         padded = nn.utils.rnn.pad_sequence(res, batch_first=True)
 
