@@ -25,7 +25,7 @@ class SingleHeadAttention(nn.Module):
         Q = self.q(embedded)
         V = self.v(embedded)
 
-        scores = (Q @ K.transpose(-2, -1)) / torch.sqrt(torch.tensor(self.attention_dim))
+        scores = (Q @ K.transpose(-2, -1)) / (self.attention_dim) ** 0.5
         seq_len = embedded.shape[1]
         causal_mask = torch.tril(torch.ones(seq_len, seq_len))
 
